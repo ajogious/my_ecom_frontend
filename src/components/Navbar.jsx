@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
+import { FaShoppingBag } from "react-icons/fa"; // For the cart icon
 
 const Navbar = () => {
+  const { cartItems } = useContext(CartContext);
+
+  // Calculate total number of items in the cart
+  const totalItems = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
+
   return (
     <nav
       className="navbar navbar-expand-md bg-primary fixed-top"
@@ -29,20 +39,28 @@ const Navbar = () => {
                 Home
               </Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/cart">
-                Cart
-              </Link>
-            </li>
           </ul>
-          <form className="d-flex" role="search">
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-          </form>
+          <div className="d-flex">
+            <Link className="nav-link position-relative" to="/cart">
+              <FaShoppingBag size={24} />
+              {totalItems > 0 && (
+                <span
+                  className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                  style={{ fontSize: "0.75rem" }}
+                >
+                  {totalItems}
+                </span>
+              )}
+            </Link>
+            <form className="d-flex ms-3" role="search">
+              <input
+                className="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+            </form>
+          </div>
         </div>
       </div>
     </nav>

@@ -14,7 +14,6 @@ const Checkout = () => {
       0
     );
 
-    // Format to 2 decimal places and then convert to a locale string
     return sum.toLocaleString(undefined, {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
@@ -26,7 +25,7 @@ const Checkout = () => {
       products: cartItems.map((item) => ({
         id: item.id,
         quantity: item.quantity,
-      })), // Include quantity
+      })),
       totalPrice: getTotalPrice(),
       paymentStatus: "Pending",
     };
